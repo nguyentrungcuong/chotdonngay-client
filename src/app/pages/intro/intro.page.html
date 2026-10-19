@@ -1,0 +1,24 @@
+<ion-content [fullscreen]="true">
+
+  <swiper-container #swiper [swiperinit]="swiperReady()" [loop]="true" [zoom]="true">
+    
+      @for (image of images; track $index; let i=$index) {
+      <swiper-slide style="text-align: center;">
+      <div class="swiper-zoom-container">
+        <img style="aspect-ratio: auto 300 / 200; object-fit: cover; max-height: 50vh;" [src]="image" />
+      </div>
+      <h1>Hey there!</h1>
+      <p>This is an epic app because...</p>
+      @if ((i+1)<images.length) { <ion-button (click)="next()" fill="outline">Next</ion-button>
+        }
+      @if ((i+1)>=images.length) {
+        <ion-button (click)="start()" fill="outline">Start</ion-button>
+        }
+
+      </swiper-slide>
+        }
+
+   
+  </swiper-container>
+
+</ion-content>

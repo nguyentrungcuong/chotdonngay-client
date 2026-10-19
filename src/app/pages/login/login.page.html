@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CHỐT ĐƠN NGAY</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form (ngSubmit)="login()" [formGroup]="credentials">
+<div class="input-group">
+
+
+<ion-item>
+  <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+</ion-item>
+
+@if ((email?.dirty||email?.touched)&&email.errors) {
+  <div class="errors">
+    @if (email.errors['required']) {
+      <span>Email is required</span>
+    }
+    @if (email.errors['email']) {
+      <span>Email is invalid</span>
+    }
+  </div>
+}
+
+<ion-item>
+  <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+</ion-item>
+@if ((password?.dirty||password?.touched)&&password.errors) {
+  <div class="errors">
+    @if (password.errors['required']) {
+      <span>Password is required</span>
+    }
+    @if (password.errors['minlength']) {
+      <span>Password needs to be 6 characters</span>
+    }
+  </div>
+}
+
+</div>
+
+<ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
+<ion-button type="button" expand="block" color="light" fill="clear">Not yet a member? Sign up!</ion-button>
+
+<ion-button type="button" expand="block" color="tertiary">
+  <ion-icon name="logo-google" slot="start"></ion-icon>
+  Sign in with Google
+</ion-button>
+<ion-button type="button" expand="block" color="tertiary">
+  <ion-icon name="logo-apple" slot="start"></ion-icon>
+  Sign in with Apple
+</ion-button>
+
+</form>
+
+</ion-content>
