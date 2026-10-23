@@ -1,48 +1,95 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <ion-title>CHỐT ĐƠN NGAY</ion-title>
+    <ion-title><strong>CHỐT ĐƠN NGAY</strong></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<form (ngSubmit)="login()" [formGroup]="credentials">
-<div class="input-group">
+  <div id="container">
+    <form (ngSubmit)="login()" [formGroup]="credentials">
+
+      <div class="input-group">
+
+        <ion-item mode="ios">
+          <ion-icon name="server" slot="start"></ion-icon>
+          <ion-input placeholder="Server" formControlName="servername"></ion-input>
+          <ion-button id="popover-login-server" fill="clear" slot="end">
+            <ion-icon name="chevron-down"></ion-icon>
+          </ion-button>
+          <ion-popover trigger="popover-login-server" [dismissOnSelect]="true" class="width-popover" mode="ios">
+            <ng-template>
+              <ion-list [inset]="true" mode="ios">
+                @for (srvname of serverNames; track $index) {
+                <ion-item [button]="true" [detail]="false" (click)="selectServer(srvname)">
+                  <ion-text>{{srvname}}</ion-text>
+                  @if (srvname!=='http://localhost' && srvname!==urlOrigin){
+                    <ion-button fill="clear" slot="end" (click)="removeServerName(srvname,$event)">
+                      <ion-icon name="close"></ion-icon>
+                    </ion-button>
+                  }
+                  
+                </ion-item>
+                }
+              </ion-list>
+            </ng-template>
+          </ion-popover>
+
+        </ion-item>
+        @if ((servername?.dirty||servername?.touched)&&servername.errors) {
+        <div class="errors">
+          @if (servername.errors['required']) {
+          <span>Servername is required</span>
+          }
+          @if (servername.errors['username']) {
+          <span>Servername is invalid</span>
+          }
+        </div>
+        }
 
 
-<ion-item>
-  <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
-</ion-item>
+        <ion-item mode="ios">
+          <ion-icon name="person-circle" slot="start"></ion-icon>
+          <ion-input placeholder="Username" formControlName="username"></ion-input>
+        </ion-item>
 
-@if ((email?.dirty||email?.touched)&&email.errors) {
-  <div class="errors">
-    @if (email.errors['required']) {
-      <span>Email is required</span>
-    }
-    @if (email.errors['email']) {
-      <span>Email is invalid</span>
-    }
-  </div>
-}
+        @if ((username?.dirty||username?.touched)&&username.errors) {
+        <div class="errors">
+          @if (username.errors['required']) {
+          <span>Username is required</span>
+          }
+          @if (username.errors['username']) {
+          <span>Username is invalid</span>
+          }
+        </div>
+        }
 
-<ion-item>
-  <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
-</ion-item>
-@if ((password?.dirty||password?.touched)&&password.errors) {
-  <div class="errors">
-    @if (password.errors['required']) {
-      <span>Password is required</span>
-    }
-    @if (password.errors['minlength']) {
-      <span>Password needs to be 6 characters</span>
-    }
-  </div>
-}
+        <ion-item mode="ios">
+          <ion-icon name="key" slot="start"></ion-icon>
+          <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+        </ion-item>
+        @if ((password?.dirty||password?.touched)&&password.errors) {
+        <div class="errors">
+          @if (password.errors['required']) {
+          <span>Password is required</span>
+          }
+          @if (password.errors['minlength']) {
+          <span>Password needs to be 6 characters</span>
+          }
+        </div>
 
-</div>
 
-<ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
+        }
+
+
+
+      </div>
+      <!-- <ion-button type="button" expand="block" color="light" fill="clear">Not yet a member? Sign up!</ion-button> -->
+
+      <ion-button mode="ios" type="submit" expand="block" [disabled]="!credentials.valid" [strong]="true">Log
+        in</ion-button>
+
+      <!-- 
 <ion-button type="button" expand="block" color="light" fill="clear">Not yet a member? Sign up!</ion-button>
-
 <ion-button type="button" expand="block" color="tertiary">
   <ion-icon name="logo-google" slot="start"></ion-icon>
   Sign in with Google
@@ -50,8 +97,9 @@
 <ion-button type="button" expand="block" color="tertiary">
   <ion-icon name="logo-apple" slot="start"></ion-icon>
   Sign in with Apple
-</ion-button>
+</ion-button> -->
 
-</form>
+    </form>
+  </div>
 
 </ion-content>
