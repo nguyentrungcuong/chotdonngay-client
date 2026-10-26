@@ -1,0 +1,16 @@
+{
+    "GENERAL":{
+        "GENERAL":"General",
+        "ERROR": "Error",
+        "CANCEL": "Cancel",
+        "OK": "Ok",
+        "DARK-MODE":"Dark Mode",
+        "LANGUAGE":"Language",
+        "BACK": "Back"
+    },
+    "AUTH": {
+        "LOGIN": "Log in",
+        "LOGOUT": "Log out",
+        "LOGIN-FAILED": "Login failed"
+    }
+}

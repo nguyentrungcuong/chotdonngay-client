@@ -32,7 +32,7 @@ export class Authentication {
             if (usrData && usrData.token) {
                 console.log('set token', usrData);
                 this.token = usrData.token;
-                delete usrData.token
+                usrData.token='';
                 this.apiwp.user.next(usrData)
                 // this.user.next(JSON.parse(jwt.value));
                 this.isAuthenticated.next(true);
@@ -47,8 +47,14 @@ export class Authentication {
 
 
     login(username: string, password: string) {
-        return this.http.post(`${this.apiwp.apiUrl}/jwt-auth/v1/token`, { username, password }).pipe(
-            map((objData) => JSON.parse(JSON.stringify(objData))),
+        return this.http.post(`${this.apiwp.apiUrl}/jwt-auth/v1/token`, { username, password },{timeout:8000}).pipe(
+            map((objData) => {
+                let data = JSON.parse(JSON.stringify(objData));
+                data.api_url = this.apiwp.apiUrl;
+                console.log(data);
+                
+                return data;
+            }),
             switchMap(async data => {
                 //return from(Preferences.set({ key: this.key.JWT_KEY, value: JSON.stringify(data) }));
                 Preferences.set({ key: this.key.JWT_KEY, value: JSON.stringify(data) });
@@ -58,10 +64,12 @@ export class Authentication {
                 this.isAuthenticated.next(true);
 
                 this.token = data.token;
-                delete data.token;
+                data.token='';
                 this.apiwp.user.next(data);
             })
-        );
+        )
+        
+        
     }
 
 

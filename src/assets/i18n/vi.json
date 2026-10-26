@@ -1,0 +1,16 @@
+{
+    "GENERAL":{
+        "GENERAL":"Cài đặt chung",
+        "ERROR": "Lỗi",
+        "CANCEL": "Hủy",
+        "OK": "Đồng ý",
+        "DARK-MODE":"Chế độ tối",
+        "LANGUAGE":"Ngôn ngữ",
+        "BACK": "Quay lại"
+    },
+    "AUTH": {
+        "LOGIN": "Đăng nhập",
+        "LOGOUT": "Đăng xuất",
+        "LOGIN-FAILED": "Đăng nhập thất bại"
+    }
+}

@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
   user = this.apiwp.getCurrentUser();
 
   serverNames: string[] = ['http://localhost'];
-  urlOrigin: string = '';
+  originhost: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -35,19 +35,19 @@ export class LoginPage implements OnInit {
     private keyName: KeyName
   ) {
     addIcons({ server, personCircle, key, chevronDown, close, closeCircle });
-    // auto add servername
-    this.urlOrigin = location.origin;
-    if (this.urlOrigin && !this.serverNames.some(f => f === this.urlOrigin)) {
-      this.serverNames.unshift(this.urlOrigin);
-      console.log('add ser');
-    }
-
-
   }
 
   ngOnInit() {
 
     console.log('loginnnnnn');
+
+    // auto add servername
+    this.originhost = location.origin;
+    if (this.originhost && !this.serverNames.some(f => f === this.originhost)) {
+      this.serverNames.unshift(this.originhost);
+    }
+
+    console.log('add ser');
 
 
     this.credentials = this.fb.group({
@@ -63,6 +63,7 @@ export class LoginPage implements OnInit {
     console.log(this.serverNames);
 
   }
+
 
   selectServer(servername: string) {
     console.log('sdvdfvdserr');
@@ -103,10 +104,10 @@ export class LoginPage implements OnInit {
       error: async (err) => {
         await loading.dismiss();
 
-        let oldsrvname = this.credentials.value.servername;
-        let oldusrname = this.credentials.value.username;
-        this.credentials.reset();
-        this.credentials.patchValue({ servername: oldsrvname, username: oldusrname });
+        // let oldsrvname = this.credentials.value.servername;
+        // let oldusrname = this.credentials.value.username;
+        // this.credentials.reset();
+        // this.credentials.patchValue({ servername: oldsrvname, username: oldusrname });
 
         console.log(err);
 
@@ -189,8 +190,8 @@ export class LoginPage implements OnInit {
     if (!this.serverNames.some(f => f === 'http://localhost')) {
       this.serverNames.push('http://localhost');
     }
-    if (!this.serverNames.some(f => f === this.urlOrigin) && this.urlOrigin) {
-      this.serverNames.push(this.urlOrigin);
+    if (!this.serverNames.some(f => f === this.originhost) && this.originhost) {
+      this.serverNames.push(this.originhost);
     }
 
     Preferences.set({ key: this.keyName.SERVER_NAME, value: JSON.stringify(this.serverNames) });

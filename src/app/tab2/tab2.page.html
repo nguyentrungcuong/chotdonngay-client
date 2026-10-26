@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
       Tab 2
@@ -7,18 +7,27 @@
 </ion-header>
 
 <ion-content >
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  heheheh
 
-  <ion-list mode="ios" [inset]="true">
-    <ion-item >
-      <ion-input placeholder="Username"></ion-input>
-      <ion-icon name="heart"></ion-icon>
-    </ion-item>
-  </ion-list>
 
+  @for (post of posts; track post.id) {
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
+        <ion-card-subtitle>{{ post.date_gmt | date }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        @if (post.media_url) {
+          <img [src]="post.media_url">
+        }
+        
+        <div [innerHTML]="post.excerpt.rendered"></div>
+  
+        <!-- Example logic to open a details page below -->
+        <!-- <ion-button expand="full" fill="clear" [routerLink]="['/', 'posts', post.id]" text-right>Read More...</ion-button> -->
+  
+      </ion-card-content>
+    </ion-card>
+  }
 
 </ion-content>

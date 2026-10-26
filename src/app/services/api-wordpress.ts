@@ -4,6 +4,7 @@ import { KeyName } from './key-name';
 import { Preferences } from '@capacitor/preferences';
 import { Platform } from '@ionic/angular';
 import { BehaviorSubject, map } from 'rxjs';
+import { User } from '../interfaces/wordpress';
 
 
 @Service()
@@ -12,19 +13,18 @@ export class ApiWordpress {
     private key = inject(KeyName);
     private plt = inject(Platform);
 
-    user = new BehaviorSubject<any>(null);
-    apiUrl:string='http://localhost/console/wp-json';
+    user = new BehaviorSubject<User|null>(null);
+    apiUrl: string = '';
 
     constructor() {
         console.log('Service api!'); // This works
-           // LOAD API SERVER NAME ====================
-           this.plt.ready().then(async () => {
-            const result = await Preferences.get({ key: this.key.SERVER_NAME });
+        // LOAD API SERVER NAME ====================
+        this.plt.ready().then(async () => {
+            const result = await Preferences.get({ key: this.key.JWT_KEY });
             if (result && result.value) {
-                let svrnames = JSON.parse(result.value);
-                if (svrnames.length) {
-                    console.log('Service api!'); // This works
-                    this.apiUrl = svrnames[0] + '/console/wp-json';
+                let usrdata = JSON.parse(result.value);
+                if (usrdata && usrdata.api_url) {
+                    this.apiUrl = usrdata.api_url;
                 }
             }
         })

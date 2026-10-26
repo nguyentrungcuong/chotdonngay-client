@@ -22,7 +22,7 @@
                 @for (srvname of serverNames; track $index) {
                 <ion-item [button]="true" [detail]="false" (click)="selectServer(srvname)">
                   <ion-text>{{srvname}}</ion-text>
-                  @if (srvname!=='http://localhost' && srvname!==urlOrigin){
+                  @if (srvname!=='http://localhost' && srvname!==originhost){
                     <ion-button fill="clear" slot="end" (click)="removeServerName(srvname,$event)">
                       <ion-icon name="close"></ion-icon>
                     </ion-button>

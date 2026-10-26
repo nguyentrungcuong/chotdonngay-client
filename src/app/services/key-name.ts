@@ -6,4 +6,6 @@ export class KeyName {
     INTRO_SEEN = 'intro-seen';
     // TOKEN_KEY = 'my-token';
     JWT_KEY = 'myjwtstoragekey';
+    LANG = 'lang';
+    DARK_MODE = 'dark-mode';
 }

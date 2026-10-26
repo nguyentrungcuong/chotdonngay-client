@@ -1,0 +1,28 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()"><ion-icon name="chevron-back"></ion-icon>{{'GENERAL.BACK'|translate}}</ion-button>
+    </ion-buttons>
+    <ion-title>{{'GENERAL.GENERAL'|translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-list-header>{{'GENERAL.GENERAL'|translate}}</ion-list-header> -->
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-icon aria-hidden="true" name="moon" slot="start"></ion-icon>
+      <ion-toggle [checked]="paletteToggle" (ionChange)="changeDarkMode($event)" justify="space-between">{{'GENERAL.DARK-MODE'|translate}}</ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-icon aria-hidden="true" name="language" slot="start"></ion-icon>
+      <ion-select [label]="('GENERAL.LANGUAGE'|translate)" [value]="lang" (ionChange)="changeLanguage($event)">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="vi">Tiếng Việt</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+
+  
+</ion-content>

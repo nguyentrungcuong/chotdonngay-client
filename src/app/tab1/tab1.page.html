@@ -1,30 +1,74 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-menu menuId="main-content" contentId="main-content">
+	<ion-header mode="ios">
+		<ion-toolbar>
+			<ion-item lines="none" style="--background: transparent;">
+				<ion-avatar slot="start">
+					<ion-img src="./assets/avatar.svg"></ion-img>
+				</ion-avatar>
+				<ion-label class="ion-text-nowrap">
+					<h3 style="font-weight: 700;">{{(user|async)?.user_display_name}}</h3>
+					<p style="line-height: unset;font-size: 9px; font-weight: 500;">{{'@'}}{{(user|async)?.user_nicename}}</p>
+				</ion-label>
+			</ion-item>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
 
-<ion-content>
-  @for (post of posts; track post.id) {
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
-        <ion-card-subtitle>{{ post.date_gmt | date }}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        @if (post.media_url) {
-          <img [src]="post.media_url">
-        }
-        
-        <div [innerHTML]="post.excerpt.rendered"></div>
-  
-        <!-- Example logic to open a details page below -->
-        <!-- <ion-button expand="full" fill="clear" [routerLink]="['/', 'posts', post.id]" text-right>Read More...</ion-button> -->
-  
-      </ion-card-content>
-    </ion-card>
-  }
- 
-</ion-content>
+
+		<ion-list [inset]="true" mode="ios">
+			<ion-item [button]="true" (click)="openSettingsGeneral()">
+				<ion-icon aria-hidden="true" name="cog-outline" slot="start"></ion-icon>
+				<ion-label class="ion-text-nowrap">
+					{{'GENERAL.GENERAL'|translate}}
+				</ion-label>
+			</ion-item>
+		</ion-list>
+
+
+
+	</ion-content>
+	<ion-footer mode="ios">
+		<ion-list [inset]="true" mode="ios">
+			<ion-item [button]="true" [detail]="false" (click)="logout()" style="color:red;font-weight: bold;">
+				<ion-icon aria-hidden="true" name="log-out-outline" slot="start"></ion-icon>
+				{{'AUTH.LOGOUT'|translate}}
+			</ion-item>
+		</ion-list>
+	</ion-footer>
+</ion-menu>
+<div class="ion-page" id="main-content">
+	<ion-header mode="md">
+		<ion-toolbar>
+			<ion-buttons slot="start">
+				<ion-menu-button menu="main-content">
+					<ion-icon src="./assets/apple-crate.svg"></ion-icon>
+				</ion-menu-button>
+			</ion-buttons>
+
+			<ion-title id="slide-title"
+				style="padding-inline-start: 0px;padding-inline-end: 0px; max-width: 250px; transition: max-width 2s;"
+				slot="start">
+				<ion-label >
+					<h3 style="font-weight: 700;">CHỐT ĐƠN NGAY</h3>
+					<p style="line-height: unset;font-size: 9px;">Chốt đơn ngay đi! Tiền có thể kiếm lại được.</p>
+				</ion-label>
+			</ion-title>
+
+
+
+			<ion-buttons mode="ios" [collapse]="true" slot="end">
+				<ion-button>
+					<ion-icon name="search" color="dark"></ion-icon>
+				</ion-button>
+			</ion-buttons>
+
+			<ion-buttons mode="ios" [collapse]="true" slot="end" style="position: relative;padding-right: 10px;">
+				<ion-badge class="count-cart-items" color="danger">1</ion-badge>
+				<ion-button>
+					<ion-icon name="notifications" color="dark"></ion-icon>
+				</ion-button>
+			</ion-buttons>
+		</ion-toolbar>
+
+	</ion-header>
+</div>
