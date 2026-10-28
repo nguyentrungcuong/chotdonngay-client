@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, ToastController, IonMenu, IonItem, IonIcon, IonLabel, IonList, IonListHeader, IonMenuToggle, MenuController, IonButtons, IonBadge, IonMenuButton, IonAvatar, IonImg, IonNote, IonFooter, AlertController, ModalController } from '@ionic/angular';
 import { Authentication } from '../services/authentication';
 import { ApiWordpress } from '../services/api-wordpress';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { lastValueFrom, take } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { addIcons } from 'ionicons'; // 2. Import addIcons utility
 import { heart, search, notifications, cogOutline, personCircleOutline, checkmarkCircle, logOutOutline } from 'ionicons/icons'; // 3. Import specific 
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -25,7 +25,6 @@ export class Tab1Page {
   constructor(
     private apiwp: ApiWordpress,
     private auth: Authentication,
-    private cdr: ChangeDetectorRef,
     private toastCtrl: ToastController,
     private menuCtrl: MenuController,
     private router: Router,
@@ -34,6 +33,8 @@ export class Tab1Page {
     private modalCtrl:ModalController
   ) {
     addIcons({ search, notifications, cogOutline, personCircleOutline, checkmarkCircle, logOutOutline });
+
+    
   }
 
 
@@ -53,19 +54,19 @@ export class Tab1Page {
 
   async logout() {
     const alert = await this.alertCtrl.create({
-      header: await lastValueFrom(this.translate.get('AUTH.LOGOUT').pipe(take(10))).catch(() => { }) + '?',
+      header: await lastValueFrom(this.translate.get('AUTH.LOGOUT')) + '?',
       // subHeader: 'Subtitle',
       // message: prod.name,
       mode: 'ios',
       buttons: [
         {
-          text: await lastValueFrom(this.translate.get('GENERAL.CANCEL').pipe(take(10))).catch(() => { }),
+          text: await lastValueFrom(this.translate.get('GENERAL.CANCEL')),
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
           }
         }, {
-          text: await lastValueFrom(this.translate.get('GENERAL.OK').pipe(take(10))).catch(() => { }),
+          text: await lastValueFrom(this.translate.get('GENERAL.OK')),
           handler: async () => {
             await this.auth.logout();
             this.router.navigateByUrl('/', { replaceUrl: true });

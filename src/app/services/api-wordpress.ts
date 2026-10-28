@@ -17,17 +17,17 @@ export class ApiWordpress {
     apiUrl: string = '';
 
     constructor() {
-        console.log('Service api!'); // This works
-        // LOAD API SERVER NAME ====================
-        this.plt.ready().then(async () => {
-            const result = await Preferences.get({ key: this.key.JWT_KEY });
-            if (result && result.value) {
-                let usrdata = JSON.parse(result.value);
-                if (usrdata && usrdata.api_url) {
-                    this.apiUrl = usrdata.api_url;
-                }
-            }
-        })
+        // console.log('Service api!'); // This works
+        // // LOAD API SERVER NAME ====================
+        // this.plt.ready().then(async () => {
+        //     const result = await Preferences.get({ key: this.key.JWT_KEY });
+        //     if (result && result.value) {
+        //         let usrdata = JSON.parse(result.value);
+        //         if (usrdata && usrdata.api_url) {
+        //             this.apiUrl = usrdata.api_url;
+        //         }
+        //     }
+        // })
     }
 
     getPosts() {

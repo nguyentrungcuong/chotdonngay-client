@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertController, IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonTitle, IonToolbar, LoadingController, IonList, IonPopover, IonText } from '@ionic/angular';
@@ -9,6 +9,8 @@ import { addIcons } from 'ionicons'; // 2. Import addIcons utility
 import { server, personCircle, key, chevronDown, close, closeCircle } from 'ionicons/icons'; // 3. Import specific 
 import { KeyName } from '../../services/key-name';
 import { Preferences } from '@capacitor/preferences';
+import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +34,9 @@ export class LoginPage implements OnInit {
     private auth: Authentication,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private keyName: KeyName
+    private keyName: KeyName,
+    private translate:TranslateService,
+    private cdr: ChangeDetectorRef
   ) {
     addIcons({ server, personCircle, key, chevronDown, close, closeCircle });
   }
@@ -94,6 +98,10 @@ export class LoginPage implements OnInit {
         // let data=await lastValueFrom(res);
         console.log('clogffff', res);
 
+
+        // this.cdr.markForCheck();
+        
+
         //  SAVE SERVER NAME TO STORAGE =========================
         this.saveServerNames(clearSrvname);
 
@@ -111,10 +119,10 @@ export class LoginPage implements OnInit {
 
         console.log(err);
 
-        let msg = (!(err?.error?.message || '').includes('wordpress') ? (err?.error?.message || '') : '').replace(/<[^>]*>/g, '') || 'Loi';//await lastValueFrom(this.translate.get('GLOBAL.ERROR'));
+        let msg = (!(err?.error?.message || '').includes('wordpress') ? (err?.error?.message || '') : '').replace(/<[^>]*>/g, '') || await lastValueFrom(this.translate.get('GLOBAL.ERROR'));
         const alert = await this.alertCtrl.create({
           mode: 'ios',
-          header: 'Đăng nhập thất bại',//await lastValueFrom(this.translate.get('AUTH.LOGIN-FAILED')),
+          header: await lastValueFrom(this.translate.get('AUTH.LOGIN-FAILED')),
           message: msg,
           buttons: ['OK']
         });
